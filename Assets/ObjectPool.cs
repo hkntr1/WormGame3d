@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
+public class ObjectPool : Singleton<ObjectPool>
 {
     public List<GameObject> prefab; // Havuzda tutulacak önceden oluþturulmuþ nesnenin prefab'ý
     public int maxObjects; // Havuzdaki maksimum nesne sayýsý
