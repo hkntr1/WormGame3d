@@ -20,11 +20,27 @@ public class HeadController : MonoBehaviour
     }
     void Update()
     {
-        for (int i = (int)transform.position.x-1; i < (int)transform.position.x+1; i++)
+        int posX = (int)transform.position.x;
+        int posY = (int)transform.position.y;
+        if (posX > GroundController.Instance.cellControllers.GetLength(0) || posY > GroundController.Instance.cellControllers.GetLength(1) || posX <= 0 || posY <= 0)
+        {
+            Debug.Log("Died");
+            if (isAi)
+            {
+                AIController.speed = 0;
+            }
+            else
+            {
+                playerController.speed = 0;
+            }
+            Destroy(transform.parent.gameObject, 1f);
+            return;
+        }
+        for (int i = (int)transform.position.x - 1; i < (int)transform.position.x + 1; i++)
         {
             for (int k = (int)transform.position.z - 1; k < (int)transform.position.z + 1; k++)
             {
-                if (GroundController.Instance.cellControllers[i,k].fruits.Count > 0)
+                if (GroundController.Instance.cellControllers[i, k].fruits.Count > 0)
                 {
                     if (isAi)
                     {
@@ -42,18 +58,18 @@ public class HeadController : MonoBehaviour
                 }
             }
         }
-       
+
 
     }
     IEnumerator vacuumCaroutine(GameObject item)
     {
         item.transform.SetParent(transform);
-        StartCoroutine(LerpPosition(Vector3.zero, 0.7f,item.transform));
-       // item.transform.localPosition = Vector3.Lerp(item.transform.localPosition,Vector3.zero, 2f*Time.smoothDeltaTime);
+        StartCoroutine(LerpPosition(Vector3.zero, 0.7f, item.transform));
+        // item.transform.localPosition = Vector3.Lerp(item.transform.localPosition,Vector3.zero, 2f*Time.smoothDeltaTime);
         yield return new WaitForSeconds(0.5f);
         item.SetActive(false);
     }
-    IEnumerator LerpPosition(Vector3 targetPosition, float duration,Transform item)
+    IEnumerator LerpPosition(Vector3 targetPosition, float duration, Transform item)
     {
         float time = 0;
         Vector3 startPosition = item.localPosition;
@@ -63,6 +79,6 @@ public class HeadController : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-      
+
     }
 }

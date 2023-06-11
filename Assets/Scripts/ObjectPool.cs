@@ -23,6 +23,7 @@ public class ObjectPool : Singleton<ObjectPool>
             GameObject obj = Instantiate(prefab[Random.Range(0, prefab.Count - 1)], new Vector3(xPos, 1, zPos), Quaternion.identity);
             obj.SetActive(true);
             availableObjects.Add(obj);
+            obj.transform.SetParent(transform);
             GroundController.Instance.cellControllers[xPos, zPos].fruits.Add(obj);
     }
      
