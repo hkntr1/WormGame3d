@@ -18,7 +18,7 @@ public class HeadController : MonoBehaviour
             playerController = transform.parent.GetComponent<PlayerController>();
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         int posX = (int)transform.position.x;
         int posY = (int)transform.position.y;
@@ -36,9 +36,9 @@ public class HeadController : MonoBehaviour
             Destroy(transform.parent.gameObject, 1f);
             return;
         }
-        for (int i = (int)transform.position.x - 1; i < (int)transform.position.x + 1; i++)
+        for (int i = (int)transform.position.x - 2; i < (int)transform.position.x + 2; i++)
         {
-            for (int k = (int)transform.position.z - 1; k < (int)transform.position.z + 1; k++)
+            for (int k = (int)transform.position.z - 2; k < (int)transform.position.z + 2; k++)
             {
                 if (GroundController.Instance.cellControllers[i, k].fruits.Count > 0)
                 {
@@ -67,7 +67,10 @@ public class HeadController : MonoBehaviour
         StartCoroutine(LerpPosition(Vector3.zero, 0.7f, item.transform));
         // item.transform.localPosition = Vector3.Lerp(item.transform.localPosition,Vector3.zero, 2f*Time.smoothDeltaTime);
         yield return new WaitForSeconds(0.5f);
-        item.SetActive(false);
+        ObjectPool.Instance.ReleaseObject(item);
+        yield return new WaitForSeconds(1f);
+        ObjectPool.Instance.AcquireObject();
+
     }
     IEnumerator LerpPosition(Vector3 targetPosition, float duration, Transform item)
     {

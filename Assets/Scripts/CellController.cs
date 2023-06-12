@@ -5,5 +5,5 @@ using UnityEngine;
 public class CellController : MonoBehaviour
 {
     public List<GameObject> fruits;
-
+    public List<BabyController> babiesInCell;
 }
