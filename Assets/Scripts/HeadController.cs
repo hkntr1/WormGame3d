@@ -6,23 +6,27 @@ public class HeadController : MonoBehaviour
     public bool isAi;
     private PlayerController playerController;
     private AIController AIController;
+    PlayerManager playerManager;
     private void Start()
     {
+        playerManager=GetComponentInParent<PlayerManager>();
         if (isAi)
         {
-            AIController = transform.parent.GetComponent<AIController>();
+            AIController =GetComponentInParent<AIController>();
         }
 
         else
         {
-            playerController = transform.parent.GetComponent<PlayerController>();
+            playerController = GetComponentInParent<PlayerController>();
         }
     }
     void FixedUpdate()
     {
         int posX = (int)transform.position.x;
-        int posY = (int)transform.position.y;
-        if (posX > GroundController.Instance.cellControllers.GetLength(0) || posY > GroundController.Instance.cellControllers.GetLength(1) || posX <= 0 || posY <= 0)
+        int posY = (int)transform.position.z;
+        Debug.Log(posY+"POSY OF"+transform.parent.name);
+        Debug.Log(posX + "POS x OF" + transform.parent.name);
+        if (posX >=98|| posY >=98|| posX <= 0 || posY <= 0)
         {
             Debug.Log("Died");
             if (isAi)
@@ -42,16 +46,14 @@ public class HeadController : MonoBehaviour
             {
                 if (GroundController.Instance.cellControllers[i, k].fruits.Count > 0)
                 {
-                    if (isAi)
-                    {
-                        AIController.AddBodyPart();
-                    }
-                    else
-                    {
-                        playerController.AddBodyPart();
-                    }
+                   
                     foreach (GameObject item in GroundController.Instance.cellControllers[i, k].fruits)
                     {
+                        if (!isAi)
+                        {
+                            ScoreManager.Instance.EatFood(transform);
+                        }
+                        playerManager.AddBeam();
                         StartCoroutine(vacuumCaroutine(item));
                     }
                     GroundController.Instance.cellControllers[i, k].fruits.Clear();
