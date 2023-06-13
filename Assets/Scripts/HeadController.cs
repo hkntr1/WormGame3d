@@ -23,12 +23,10 @@ public class HeadController : MonoBehaviour
     void FixedUpdate()
     {
         int posX = (int)transform.position.x;
-        int posY = (int)transform.position.z;
-        Debug.Log(posY+"POSY OF"+transform.parent.name);
-        Debug.Log(posX + "POS x OF" + transform.parent.name);
+        int posY = (int)transform.position.z;    
         if (posX >=98|| posY >=98|| posX <= 0 || posY <= 0)
         {
-            Debug.Log("Died");
+           
             if (isAi)
             {
                 AIController.speed = 0;

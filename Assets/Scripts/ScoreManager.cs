@@ -21,7 +21,7 @@ public class ScoreManager : Singleton<ScoreManager>
         score +=scoreSection;
         eatedInASection = 0;
         scoreText.text = "Score: " + score;
-        Debug.Log(foodValue + "FOOD VALUE IN THIS SECTION");
+      
         ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab,worldCanvas.transform);
         scoreSectionCanvas.Init(headPos.position,scoreSection);
     }
