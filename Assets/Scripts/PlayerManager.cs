@@ -32,6 +32,7 @@ public class PlayerManager : MonoBehaviour
             AIController?.AddBodyPart();
         }
     }
+
     public void Die()
     {
         if (!isDead)

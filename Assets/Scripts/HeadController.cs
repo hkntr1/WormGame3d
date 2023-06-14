@@ -7,6 +7,8 @@ public class HeadController : MonoBehaviour
     private PlayerController playerController;
     private AIController AIController;
     PlayerManager playerManager;
+
+    public int _area;
     private void Start()
     {
         playerManager=GetComponentInParent<PlayerManager>();
@@ -38,9 +40,9 @@ public class HeadController : MonoBehaviour
             Destroy(transform.parent.gameObject, 1f);
             return;
         }
-        for (int i = (int)transform.position.x - 2; i < (int)transform.position.x + 2; i++)
+        for (int i = (int)transform.position.x - _area; i < (int)transform.position.x + _area; i++)
         {
-            for (int k = (int)transform.position.z - 2; k < (int)transform.position.z + 2; k++)
+            for (int k = (int)transform.position.z - _area; k < (int)transform.position.z + _area; k++)
             {
                 if (GroundController.Instance.cellControllers[i, k].fruits.Count > 0)
                 {
@@ -49,7 +51,15 @@ public class HeadController : MonoBehaviour
                     {
                         if (!isAi)
                         {
-                            ScoreManager.Instance.EatFood(transform);
+                            if (item.CompareTag("magnet"))
+                            {
+                                MagnetController.Instance.CoroutineStarter(this);
+                            }
+                            else
+                            {
+                                ScoreManager.Instance.EatFood(transform);
+                            }
+                          
                         }
                         playerManager.AddBeam();
                         StartCoroutine(vacuumCaroutine(item));
@@ -61,15 +71,27 @@ public class HeadController : MonoBehaviour
 
 
     }
+
     IEnumerator vacuumCaroutine(GameObject item)
     {
         item.transform.SetParent(transform);
         StartCoroutine(LerpPosition(Vector3.zero, 0.7f, item.transform));
         // item.transform.localPosition = Vector3.Lerp(item.transform.localPosition,Vector3.zero, 2f*Time.smoothDeltaTime);
-        yield return new WaitForSeconds(0.5f);
-        ObjectPool.Instance.ReleaseObject(item);
-        yield return new WaitForSeconds(1f);
-        ObjectPool.Instance.AcquireObject();
+        if (!item.CompareTag("magnet"))
+        {
+            yield return new WaitForSeconds(0.5f);
+            ObjectPool.Instance.ReleaseObject(item);
+            yield return new WaitForSeconds(1f);
+            ObjectPool.Instance.AcquireObject();
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+            MagnetPool.Instance.ReleaseObject(item);
+            yield return new WaitForSeconds(1f);
+            MagnetPool.Instance.AcquireObject();
+        }
+        
 
     }
     IEnumerator LerpPosition(Vector3 targetPosition, float duration, Transform item)
