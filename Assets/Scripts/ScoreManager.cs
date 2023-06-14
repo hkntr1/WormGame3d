@@ -30,7 +30,7 @@ public class ScoreManager : Singleton<ScoreManager>
         score +=scoreSection;
         eatedInASection = 0;
         scoreText.text = "Score: " + score;
-      
+        Debug.Log(scoreSection+" SCORE IS") ;
         ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab,worldCanvas.transform);
         scoreSectionCanvas.Init(headPos.position,scoreSection);
         
