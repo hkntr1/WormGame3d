@@ -10,11 +10,20 @@ public class ScoreManager : Singleton<ScoreManager>
     float comboTimer = 0f;
     public int eatedInASection;
     int score;
+    int TotalScore;
     bool isInaSection;
     
    [SerializeField] ScoreCanvasController scoreCanvasPrefab;
 
-    
+    private void Start()
+    {
+        TotalScore = PlayerPrefs.GetInt("TotalScore",0);
+    }
+    public void SaveScore()
+    {
+        TotalScore += score;
+        PlayerPrefs.SetInt("TotalScore",TotalScore);
+    }
     public void EatFood(int foodValue,Transform headPos)
     {
         int scoreSection = 0;

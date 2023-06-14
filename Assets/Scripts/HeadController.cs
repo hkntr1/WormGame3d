@@ -37,7 +37,7 @@ public class HeadController : MonoBehaviour
             {
                 playerController.speed = 0;
             }
-            Destroy(transform.parent.gameObject, 1f);
+            playerManager.Die();
             return;
         }
         for (int i = (int)transform.position.x - _area; i < (int)transform.position.x + _area; i++)

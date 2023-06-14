@@ -35,10 +35,18 @@ public class PlayerManager : MonoBehaviour
 
     public void Die()
     {
+        if (!isAi)
+        {
+            Camera.main.transform.parent = null;
+            ScoreManager.Instance.SaveScore();
+        }
+
         if (!isDead)
         {
             isDead = true;
             transform.gameObject.SetActive(false);
+            
         }
+
     }
 }
