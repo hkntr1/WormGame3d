@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Transform preBodyPart;
     private float distance;
     private float mindistance = 0.25f;
+    public float nitroFactor=1f;
    
     void Start()
     {
@@ -35,10 +37,7 @@ public class PlayerController : MonoBehaviour
             AddBodyPart();
         }
     }
-    public void MoveBye()
-    {
-        Babies[0].Translate(Babies[0].right * speed * Time.smoothDeltaTime, Space.World);
-    }
+
     public void Move()
     {
        
@@ -46,7 +45,7 @@ public class PlayerController : MonoBehaviour
         if (fixedJoystick.Direction != Vector2.zero)
         {
             currentDir = fixedJoystick.Direction;
-            Babies[0].Translate(new Vector3(fixedJoystick.Direction.x, 0, fixedJoystick.Direction.y) * curspeed * Time.smoothDeltaTime, Space.World);
+            Babies[0].Translate(new Vector3(fixedJoystick.Direction.x, 0, fixedJoystick.Direction.y) * nitroFactor*curspeed * Time.smoothDeltaTime, Space.World);
         }
         else
         {
@@ -71,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public void AddBodyPart()
     {
         GameObject baby= Instantiate(bodyPart, Babies[Babies.Count-1].transform.position,Quaternion.Euler(Vector3.right*90));
+        baby.GetComponent<SpriteRenderer>().sprite  = Resources.Load<Sprite>("Sprites/Bodies/body" + PlayerPrefs.GetInt("Selected")); ;
         baby.transform.SetParent(transform);
         Babies.Add(baby.transform);
     }

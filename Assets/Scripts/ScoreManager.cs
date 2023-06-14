@@ -17,13 +17,23 @@ public class ScoreManager : Singleton<ScoreManager>
     
     public void EatFood(int foodValue,Transform headPos)
     {
-        int scoreSection = Mathf.RoundToInt(Mathf.Log(foodValue) * 12);
+        int scoreSection = 0;
+        if (foodValue<0)
+        {
+            scoreSection = foodValue;
+        }
+        else
+        {
+            scoreSection = Mathf.RoundToInt(Mathf.Log(foodValue) * 12);
+        }
+       
         score +=scoreSection;
         eatedInASection = 0;
         scoreText.text = "Score: " + score;
       
         ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab,worldCanvas.transform);
         scoreSectionCanvas.Init(headPos.position,scoreSection);
+        
     }
     public void EatFood(Transform head)
     {

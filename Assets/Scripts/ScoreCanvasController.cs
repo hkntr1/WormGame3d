@@ -13,7 +13,12 @@ public class ScoreCanvasController : MonoBehaviour
       
         transform.position =pos+Vector3.up;
         scoreText.text = score.ToString();
-     
+        if (score<0)
+        {
+            scoreText.color = Color.red;
+            Debug.Log(score);
+        }
+  
         StartCoroutine(LerpScale(1f,transform));
    
     }
