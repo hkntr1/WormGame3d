@@ -16,7 +16,8 @@ public class ScoreCanvasController : MonoBehaviour
         if (score<0)
         {
             scoreText.color = Color.red;
-            Debug.Log(score);
+            
+
         }
   
         StartCoroutine(LerpScale(1f,transform));

@@ -17,6 +17,7 @@ public class ScoreManager : Singleton<ScoreManager>
 
     private void Start()
     {
+        scoreText.text = "Score: " + score;
         TotalScore = PlayerPrefs.GetInt("TotalScore",0);
     }
     public void SaveScore()
@@ -30,6 +31,10 @@ public class ScoreManager : Singleton<ScoreManager>
     }
     public void EatFood(int foodValue,Transform headPos)
     {
+        if (foodValue ==0)
+        {
+            return;
+        }
         int scoreSection = 0;
         if (foodValue<0)
         {
@@ -37,13 +42,15 @@ public class ScoreManager : Singleton<ScoreManager>
         }
         else
         {
-            scoreSection = Mathf.RoundToInt(Mathf.Log(foodValue) * 12);
+           
+            scoreSection = Mathf.RoundToInt((Mathf.Log(foodValue)+2) *17);
+        
         }
        
         score +=scoreSection;
         eatedInASection = 0;
         scoreText.text = "Score: " + score;
-        Debug.Log(scoreSection+" SCORE IS") ;
+      
         ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab,worldCanvas.transform);
         scoreSectionCanvas.Init(headPos.position,scoreSection);
         

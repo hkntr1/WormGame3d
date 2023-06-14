@@ -31,7 +31,7 @@ public class HeadController : MonoBehaviour
            
             if (isAi)
             {
-                AIController.speed = 0;
+              //  AIController.speed = 0;
             }
             else
             {
@@ -75,7 +75,7 @@ public class HeadController : MonoBehaviour
     IEnumerator vacuumCaroutine(GameObject item)
     {
         item.transform.SetParent(transform);
-        StartCoroutine(LerpPosition(Vector3.zero, 0.7f, item.transform));
+        StartCoroutine(LerpPosition(Vector3.zero, 0.5f, item.transform));
         // item.transform.localPosition = Vector3.Lerp(item.transform.localPosition,Vector3.zero, 2f*Time.smoothDeltaTime);
         if (!item.CompareTag("magnet"))
         {

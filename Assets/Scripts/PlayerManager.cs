@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -9,16 +10,28 @@ public class PlayerManager : MonoBehaviour
     private PlayerController playerController;
     private AIController AIController;
     public bool isAi;
+    private int typeIndex;
     private void Start()
     {
         if (isAi)
         {
             AIController = transform.GetComponent<AIController>();
+            Init();
+         
         }
-
         else
         {
             playerController = transform.GetComponent<PlayerController>();
+        }
+    }
+    public void Init()
+    {
+        typeIndex = Random.Range(1,5);
+        AIController.bodyPart= Resources.Load<GameObject>("Prefabs/body" +typeIndex);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Heads/face" + typeIndex);
+        for (int i = 0; i < Random.Range(1,4); i++)
+        {
+            AIController.AddBodyPart();
         }
     }
     public void AddBeam()
@@ -47,8 +60,63 @@ public class PlayerManager : MonoBehaviour
         {
             isDead = true;
             transform.gameObject.SetActive(false);
-            
+
+        }
+        if (isAi)
+        {
+            Reborn();
         }
 
     }
+   void Reborn()
+    {
+        
+        float minDistance = 20f;
+        float maxDistance = 95f;
+        float distance = Random.Range(minDistance, maxDistance);
+
+        // Spawn noktasýnýn pozisyonunu al
+        Vector3 spawnPoint = transform.position;
+
+        // Rastgele bir yönde hareket ettir
+        spawnPoint += Random.onUnitSphere * distance;
+        spawnPoint.y = 0.5f;
+        if (spawnPoint.z>95)
+        {
+            spawnPoint.z = 90;
+        }
+        if (spawnPoint.x > 95)
+        {
+            spawnPoint.x = 90;
+        }
+        if (spawnPoint.z < 0)
+        {
+            spawnPoint.z = 10;
+        }
+        if (spawnPoint.x < 0)
+        {
+            spawnPoint.x = 10;
+        }
+        if (GroundController.Instance.cellControllers[(int)spawnPoint.x, (int)spawnPoint.z].babiesInCell.Count > 0)
+        {
+            Reborn();
+        }
+        transform.GetChild(0).transform.position = spawnPoint;
+       
+        gameObject.SetActive(true);
+        isDead = false;
+        for (int i = 1; i <transform.childCount ; i++)
+        {
+          Transform baby = transform.GetChild(i);
+          AIController.Babies.Remove(baby);
+          Destroy(transform.GetChild(i).gameObject);
+         
+        }
+        for (int i = 0; i < Random.Range(0,3); i++)
+        {
+            AIController.AddBodyPart();
+            
+        }
+    }
+   
 }

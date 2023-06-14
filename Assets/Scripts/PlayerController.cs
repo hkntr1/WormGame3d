@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     FixedJoystick fixedJoystick;
     public GameObject bodyPart;
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     public void AddBodyPart()
     {
         GameObject baby= Instantiate(bodyPart, Babies[Babies.Count-1].transform.position,Quaternion.Euler(Vector3.right*90));
-        baby.GetComponent<SpriteRenderer>().sprite  = Resources.Load<Sprite>("Sprites/Bodies/body" + PlayerPrefs.GetInt("Selected")); ;
+        baby.GetComponent<SpriteRenderer>().sprite  = Resources.Load<Sprite>("Sprites/Bodies/body" + PlayerPrefs.GetInt("Selected")); 
         baby.transform.SetParent(transform);
         Babies.Add(baby.transform);
     }
