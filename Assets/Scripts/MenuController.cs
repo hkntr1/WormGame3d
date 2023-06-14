@@ -5,13 +5,20 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
+    
     private int _mode;
     private TextMeshProUGUI modeButtonText;
+    [SerializeField] TextMeshProUGUI TotalScoreText;
     [SerializeField] Image modeButton;
     [SerializeField] Image background;
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
     private void Start()
     {
         modeButtonText = modeButton.transform.GetComponentInChildren<TextMeshProUGUI>();
+        TotalScoreText.text = "SKOR: " + PlayerPrefs.GetInt("TotalScore");
         ModeSelector();
     }
    public void ModeSelector()

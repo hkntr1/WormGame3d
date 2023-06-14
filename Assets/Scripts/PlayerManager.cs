@@ -39,6 +39,8 @@ public class PlayerManager : MonoBehaviour
         {
             Camera.main.transform.parent = null;
             ScoreManager.Instance.SaveScore();
+            FindAnyObjectByType<AfterGameController>().gameObject.SetActive(true) ;
+            FindAnyObjectByType<AfterGameController>().Init();
         }
 
         if (!isDead)

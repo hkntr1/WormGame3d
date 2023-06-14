@@ -24,6 +24,10 @@ public class ScoreManager : Singleton<ScoreManager>
         TotalScore += score;
         PlayerPrefs.SetInt("TotalScore",TotalScore);
     }
+    public int GetScore()
+    {
+        return score;
+    }
     public void EatFood(int foodValue,Transform headPos)
     {
         int scoreSection = 0;
