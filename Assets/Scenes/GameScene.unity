@@ -1307,6 +1307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAi: 1
+  _area: 2
 --- !u!212 &734914958
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1530,6 +1531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAi: 0
+  _area: 2
 --- !u!114 &784362577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2067,6 +2069,67 @@ RectTransform:
   m_AnchoredPosition: {x: 49.67197, y: 0}
   m_SizeDelta: {x: 98.9067, y: 100.4962}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1064733729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064733732}
+  - component: {fileID: 1064733731}
+  - component: {fileID: 1064733730}
+  m_Layer: 0
+  m_Name: MagnetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1064733730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064733729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f29ece3e33a9bb48b729bccf15859a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countText: {fileID: 1159841965}
+--- !u!114 &1064733731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064733729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61896a42f8220624aa86ef1ec887f2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab:
+  - {fileID: 1829371231341652, guid: 6e72353198be98248a12deb98236b9d6, type: 3}
+  maxObjects: 20
+--- !u!4 &1064733732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064733729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1080356283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,6 +2856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAi: 1
+  _area: 2
 --- !u!212 &1366662164
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4137,6 +4201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAi: 1
+  _area: 2
 --- !u!212 &1915509424
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4317,6 +4382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAi: 1
+  _area: 2
 --- !u!212 &1958013467
 SpriteRenderer:
   m_ObjectHideFlags: 0
