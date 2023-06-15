@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388fd829a962803478742312a09bd767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyCount: 100
   AIPrefab: {fileID: 5357321321007589587, guid: 74c6401188a11be468103cffe763e37f,
     type: 3}
 --- !u!1 &330585543

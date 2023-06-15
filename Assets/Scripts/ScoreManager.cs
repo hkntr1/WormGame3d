@@ -12,48 +12,45 @@ public class ScoreManager : Singleton<ScoreManager>
     int score;
     int TotalScore;
     bool isInaSection;
-    
-   [SerializeField] ScoreCanvasController scoreCanvasPrefab;
+
+    [SerializeField] ScoreCanvasController scoreCanvasPrefab;
 
     private void Start()
     {
         scoreText.text = "Score: " + score;
-        TotalScore = PlayerPrefs.GetInt("TotalScore",0);
+        TotalScore = PlayerPrefs.GetInt("TotalScore", 0);
     }
     public void SaveScore()
     {
         TotalScore += score;
-        PlayerPrefs.SetInt("TotalScore",TotalScore);
+        PlayerPrefs.SetInt("TotalScore", TotalScore);
     }
     public int GetScore()
     {
         return score;
     }
-    public void EatFood(int foodValue,Transform headPos)
+    public void EatFood(int foodValue, Transform headPos)
     {
-        if (foodValue ==0)
+        if (foodValue == 0)
         {
             return;
         }
         int scoreSection = 0;
-        if (foodValue<0)
-        {
-            scoreSection = foodValue;
-        }
-        else
-        {
-           
-            scoreSection = Mathf.RoundToInt((Mathf.Log(foodValue)+2) *17);
-        
-        }
-       
-        score +=scoreSection;
+        scoreSection = Mathf.RoundToInt((((foodValue * 1.7f) + 2)) * (((foodValue * 1.7f) + 2)));
+        score += scoreSection;
         eatedInASection = 0;
         scoreText.text = "Score: " + score;
-      
-        ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab,worldCanvas.transform);
-        scoreSectionCanvas.Init(headPos.position,scoreSection);
-        
+
+        ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab, worldCanvas.transform);
+        scoreSectionCanvas.Init(headPos.position, scoreSection);
+
+    }
+    public void NitroPenalty(int penaltyScore, Transform headPos)
+    {
+        score += penaltyScore;
+        scoreText.text = "Score: " + score;
+        ScoreCanvasController scoreSectionCanvas = Instantiate(scoreCanvasPrefab, worldCanvas.transform);
+        scoreSectionCanvas.Init(headPos.position, penaltyScore);
     }
     public void EatFood(Transform head)
     {
@@ -73,7 +70,7 @@ public class ScoreManager : Singleton<ScoreManager>
             yield return null;
         }
         isInaSection = false;
-        EatFood(eatedInASection,head);
+        EatFood(eatedInASection, head);
     }
-   
+
 }

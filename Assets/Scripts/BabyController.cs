@@ -1,15 +1,16 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BabyController : MonoBehaviour
 {
     public CellController currentCell;
     private PlayerManager playerManager;
-
+   public bool isDead;
 
     public void Die()
     {
        playerManager.Die();
-
+        isDead = true;
     }
     private void Start()
     {
@@ -31,14 +32,16 @@ public class BabyController : MonoBehaviour
         {
             for (int i = 0; i < currentCell.babiesInCell.Count; i++)
             {
-                if (currentCell.babiesInCell[i].transform.parent != transform.parent)
+                if (currentCell.babiesInCell[i]!=null)
                 {
-                    if (playerManager.isAi)
+                    if (currentCell.babiesInCell[i].transform.parent != transform.parent)
                     {
-                        currentCell.babiesInCell[i].Die();
+                        if (playerManager.isAi)
+                        {
+                            currentCell.babiesInCell[i].Die();
+                        }
                     }
                 }
-
             }
         }
     }

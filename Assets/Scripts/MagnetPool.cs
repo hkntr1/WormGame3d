@@ -5,7 +5,7 @@ public class MagnetPool : Singleton<MagnetPool>
 {
     public List<GameObject> prefab;
     public int maxObjects;
-
+    private Vector3 localScale;
     private List<GameObject> availableObjects = new List<GameObject>();
     private List<GameObject> inUseObjects = new List<GameObject>();
 
@@ -25,6 +25,7 @@ public class MagnetPool : Singleton<MagnetPool>
             inUseObjects.Add(obj);
             obj.transform.SetParent(transform);
             GroundController.Instance.cellControllers[xPos, zPos].fruits.Add(obj);
+            localScale = obj.transform.localScale;
         }
 
     }
@@ -45,6 +46,7 @@ public class MagnetPool : Singleton<MagnetPool>
         obj.transform.position = new Vector3(xPos, 1, zPos);
         GroundController.Instance.cellControllers[xPos, zPos].fruits.Add(obj);
         obj.transform.SetParent(transform);
+        obj.transform.localScale = localScale;
         return obj;
     }
 

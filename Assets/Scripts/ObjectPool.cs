@@ -42,9 +42,11 @@ public class ObjectPool : Singleton<ObjectPool>
         obj.SetActive(true);
         int xPos = Random.Range(1, 99);
         int zPos = Random.Range(1, 99);
+        
         obj.transform.position = new Vector3(xPos, 1, zPos);
         GroundController.Instance.cellControllers[xPos, zPos].fruits.Add(obj);
         obj.transform.SetParent(transform);
+        obj.transform.localScale = Vector3.one * 50;
         return obj;
     }
 

@@ -36,7 +36,7 @@ public class UIButtonHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 if (_penaltyCounter>_penaltyTimer)
                 {
                     _penaltyCounter = 0;
-                    ScoreManager.Instance.EatFood(-15, playerController.Babies[0]);
+                    ScoreManager.Instance.NitroPenalty(-50, playerController.Babies[0]);
                 }
                 playerController.nitroFactor = 3f;
             }

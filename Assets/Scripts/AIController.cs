@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    FixedJoystick fixedJoystick;
     public GameObject bodyPart;
     public List<Transform> Babies;
     Vector3 currentDir;
@@ -19,7 +18,7 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
-        fixedJoystick = FindObjectOfType<FixedJoystick>();
+        timerCounter = timerLimit;
         Init();
     }
     private void Init()
@@ -48,7 +47,11 @@ public class AIController : MonoBehaviour
         {
      
             currentDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-            
+            Vector3 route = Babies[0].transform.position+currentDir;
+            if (route.z<0||route.z>99||route.x>99||route.x<0)//Yeni rota belirlerken duvara yakýnsa duvara doðru dönme
+            {
+                currentDir = currentDir * -1;
+            }
             timerCounter = 0;
         }
 
@@ -80,4 +83,5 @@ public class AIController : MonoBehaviour
         baby.transform.SetParent(transform);
         Babies.Add(baby.transform);
     }
+    
 }
